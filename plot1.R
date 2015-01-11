@@ -25,11 +25,14 @@
                 png(filename)
                 hist(dataTable$Global_active_power,col="red",main="Global Active Power",breaks=seq(0,8,by=0.5),xlab="Global_active_power(kilowatts)")
 
-                rug(dataTable$Global_active_power,side=1)
+                #rug(dataTable$Global_active_power,side=1)
                 dev.off()
 
         }
-
+        #Assumption is that the data file is in the working dir
         filename<-("household_power_consumption.txt")
+        #get the data set
         myDT<-readData(filename,date1<-c("2007-02-01"),date2<-c("2007-02-03"))
+
+        #write the graph to png file
         writeToPNG("plot1.png",myDT)

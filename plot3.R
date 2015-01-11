@@ -21,11 +21,11 @@
         writeToPNG<- function(filename,dataTable){
                 #set the margin
                 par(mar=c(2,4,2,2))
-                #par(mfrow=c(2,2),oma = c(0,0,0,0) + 0.1,mar=c(4,4,1,1))
                 png(filename)
-                plot(myDT$DateTime, myDT$Global_active_power,type='l',xlab="",ylab="Global Active Power(kilowatts)")
-
-                #rug(dataTable$DateTime,side=1)
+                plot(myDT$DateTime, myDT$Sub_metering_1,type='l', lwd=2, xlab="",ylab="Energy sub metering")
+                lines(myDT$DateTime, myDT$Sub_metering_2,col = "red")
+                lines(myDT$DateTime, myDT$Sub_metering_3, col="blue")
+                legend("topright",c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),lty=c(1,1,1),col=c("black", "red", "blue"))
                 dev.off()
 
         }
@@ -36,4 +36,4 @@
         myDT<-readData(filename,date1<-c("2007-02-01"),date2<-c("2007-02-03"))
 
         #write the graph to png file
-        writeToPNG("plot2.png",myDT)
+        writeToPNG("plot3.png",myDT)

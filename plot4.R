@@ -20,10 +20,20 @@
 
         writeToPNG<- function(filename,dataTable){
                 #set the margin
-                par(mar=c(2,4,2,2))
-                #par(mfrow=c(2,2),oma = c(0,0,0,0) + 0.1,mar=c(4,4,1,1))
                 png(filename)
-                plot(myDT$DateTime, myDT$Global_active_power,type='l',xlab="",ylab="Global Active Power(kilowatts)")
+                par(mfrow=c(2,2),oma = c(0,0,0,0) + 0.1,mar=c(4,4,1,1))
+
+                plot(dataTable$DateTime, dataTable$Global_active_power,type='l',xlab="",ylab="Global Active Power(kilowatts)")
+
+                plot(dataTable$DateTime, dataTable$Voltage, type ='l',xlab="Datetime", ylab="Voltage")
+
+                plot(dataTable$DateTime, dataTable$Sub_metering_1,type='l', lwd=2, xlab="",ylab="Energy sub metering")
+                lines(dataTable$DateTime, dataTable$Sub_metering_2,col = "red")
+                lines(dataTable$DateTime, dataTable$Sub_metering_3, col="blue")
+                legend("topright",c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),bty="n",lty=c(1,1,1),col=c("black", "red", "blue"),cex=0.5)
+                plot(dataTable$DateTime, dataTable$Global_reactive_power, type ='l', xlab="Datetime",ylab="Global Reactive Power")
+
+
 
                 #rug(dataTable$DateTime,side=1)
                 dev.off()
@@ -32,8 +42,7 @@
         #Assumption is that the data file is in the working dir
         filename<-("household_power_consumption.txt")
 
-        #get the data set
         myDT<-readData(filename,date1<-c("2007-02-01"),date2<-c("2007-02-03"))
 
         #write the graph to png file
-        writeToPNG("plot2.png",myDT)
+        writeToPNG("plot4.png",myDT)
